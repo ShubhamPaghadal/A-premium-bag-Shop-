@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth Page</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-gray-900 text-white">
+
+    <!-- ================= REGISTER ================= -->
+    <section class="py-10">
+        <div class="flex flex-col items-center justify-center">
+            <h1 class="text-2xl mb-4">Register</h1>
+
+            <form id="registerForm" class="space-y-4 bg-gray-800 p-6 rounded">
+
+                <input type="text" id="fullname" placeholder="Full Name" class="w-full p-2 rounded text-white" />
+
+                <input type="email" id="registerEmail" placeholder="Email" class="w-full p-2 rounded text-white" />
+
+                <input type="password" id="registerPassword" placeholder="Password"
+                    class="w-full p-2 rounded text-white" />
+
+                <button type="submit" class="w-full bg-green-600 p-2 rounded">Sign Up</button>
+            </form>
+        </div>
+    </section>
+
+
+    <!-- ================= LOGIN ================= -->
+    <section class="py-10">
+        <div class="flex flex-col items-center justify-center">
+            <h1 class="text-2xl mb-4">Login</h1>
+
+            <form id="loginForm" class="space-y-4 bg-gray-800 p-6 rounded">
+
+                <input type="email" id="loginEmail" placeholder="Email" class="w-full p-2 rounded text-white" />
+
+                <input type="password" id="loginPassword" placeholder="Password"
+                    class="w-full p-2 rounded text-white" />
+
+                <button type="submit" class="w-full bg-green-400 text-white p-2 rounded">Sign In</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+
+        /* ================= REGISTER ================= */
+        document.getElementById("registerForm").addEventListener("submit", async (e) => {
+            e.preventDefault()
+
+            const fullname = document.getElementById("fullname").value.trim()
+            const email = document.getElementById("registerEmail").value.trim()
+            const password = document.getElementById("registerPassword").value.trim()
+
+            //  Validation
+            if (!fullname || !email || !password) {
+                alert(" All fields are required")
+                return
+            }
+
+            if (fullname.length < 3) {
+                alert(" Name must be at least 3 characters")
+                return
+            }
+
+            try {
+                const res = await fetch("http://localhost:3000/users/register", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ fullname, email, password })
+                })
+
+                const data = await res.text()
+
+                alert(" Registered Successfully")
+                console.log(data)
+
+            } catch (err) {
+                alert(" Registration failed")
+            }
+        })
+
+        /* ================= LOGIN ================= */
+        document.getElementById("loginForm").addEventListener("submit", async (e) => {
+            e.preventDefault()
+
+            const email = document.getElementById("loginEmail").value.trim()
+            const password = document.getElementById("loginPassword").value.trim()
+
+            //  Validation
+            if (!email || !password) {
+                alert(" Email & Password required")
+                return
+            }
+
+            try {
+                const res = await fetch("http://localhost:3000/users/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ email, password })
+                })
+
+                const data = await res.text()
+
+                alert(" Login Successful")
+                console.log(data)
+
+            } catch (err) {
+                alert(" Login failed")
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>
