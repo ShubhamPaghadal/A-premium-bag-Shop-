@@ -40,6 +40,8 @@ app.use('/users', usersRouter)
 app.use('/products', productsRouter)
 app.use('/index', index)
 
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 // app.get('/', (req, res) => {
 //     res.send('Hello!!!')
 // })
