@@ -1,7 +1,9 @@
 const express = require('express')
+const app = express()
 const router = express.Router()
-const upload = require('../config/multer.config')
+const upload = require('../config/multer-config')
 const productModel = require('../models/product-model')
+
 
 router.get('/create', upload.single('image'), async (req, res) => {
 
@@ -25,6 +27,10 @@ router.get('/create', upload.single('image'), async (req, res) => {
     } catch (err) {
         console.log(err.message)
     }
+})
+
+router.get("/admin", (Req, res) => {
+    res.render('createProduct')
 })
 
 module.exports = router                                                                                    
