@@ -3,6 +3,7 @@ const userModel = require('../models/user-model')
 
 
 module.exports = async (req, res, next) => {
+    console.log('cookie******',req.cookies)
     if (!req.cookies.token) {
         req.flash('error', "you need to login first")
         return res.redirect('/')
@@ -11,6 +12,7 @@ module.exports = async (req, res, next) => {
         let decoded = jwt.verify(req.cookies.token, process.env.JWT_KEY)
         let user = await userModel.findOne({ email: decoded.email }).select("-password");
         req.user = user;
+        console.log('decoded********',decoded)
         next()
     } catch (error) {
         req.flash('error', "something went wrong.")
