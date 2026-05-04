@@ -5,7 +5,7 @@ const upload = require('../config/multer-config')
 const productModel = require('../models/product-model')
 
 
-router.get('/create', upload.single('image'), async (req, res) => {
+router.post('/create', upload.single('image'), async (req, res) => {
 
     const imageUrl = `http://localhost:3000/uploads/${req.file.filename}`
 
@@ -29,8 +29,9 @@ router.get('/create', upload.single('image'), async (req, res) => {
     }
 })
 
+
+//<======================== Admin rout ========================>
 router.get("/admin", (Req, res) => {
     res.render('createProduct')
 })
-
 module.exports = router                                                                                    
