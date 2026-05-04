@@ -32,6 +32,6 @@ router.post('/create', upload.single('image'), async (req, res) => {
 
 //<======================== Admin rout ========================>
 router.get("/admin", (req, res) => {
-    res.render('createProduct')
+    res.render('createProducts')
 })
 module.exports = router                                                                                    

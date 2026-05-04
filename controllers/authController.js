@@ -54,9 +54,9 @@ const loginUser = async (req, res) => {
             let token = genarateToken(user)
             res.cookie('token', token)
             console.log('this is login token : - =====', token)
-            return res.redirect('/shop')
+            return res.json({massage: "Login Successfully", token} )
         } else {
-            return res.json({ message: 'Invalid email or password' })
+            return res.json({ message: 'Invalid email or password' })   
         }
     })
 }
